@@ -16,11 +16,11 @@ export const attemptSignIn = async (email, password) => {
 
 const singedId = req => req.session.userId
 
-export const checkSignedIn = req => {
+export const ensureSignedIn = req => {
   if (!singedId(req)) throw new AuthenticationError('You must be signed in.')
 }
 
-export const checkSignedOut = req => {
+export const ensureSignedOut = req => {
   if (singedId(req)) throw new AuthenticationError('You are already signed in.')
 }
 
