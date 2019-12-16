@@ -1,17 +1,29 @@
 import Joi from 'joi'
 
-export default Joi.object().keys({
-  email: Joi.string().email().required().label('Email'),
-  username: Joi.string().alphanum().min(4).max(30).required().label('Username'),
-  name: Joi.string().max(254).required().label('Name'),
-  password: Joi.string().regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,30}$/).label('Password').options({
-    language: {
-      string: {
-        regex: {
-          base: 'Must have at least one upper case, at least one lower case, at least one digit, at least one special character. Length must be min 8 and max 30 characters.'
-        }
+const email = Joi.string().email().required().label('Email')
+
+const username = Joi.string().alphanum().min(4).max(30).required().label('Username')
+
+const name = Joi.string().max(254).required().label('Name')
+
+const password = Joi.string().regex(/^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*\d).*$/).label('Password').options({
+  language: {
+    string: {
+      regex: {
+        base: 'Must have at least one upper case, one lower case, and one digit.'
       }
     }
   }
-  )
+})
+
+export const signUp = Joi.object().keys({
+  email,
+  username,
+  name,
+  password
+})
+
+export const signIn = Joi.object().keys({
+  email,
+  password
 })
