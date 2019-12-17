@@ -1,7 +1,7 @@
-import mongoose from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 import { hash, compare } from 'bcryptjs'
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   email: {
     type: String,
     validate: {
@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
       message: ({ value }) => `Username ${value} has already been taken.`
     }
   },
+  chats: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Chat'
+  }],
   name: String,
   password: String
 }, {

@@ -1,4 +1,4 @@
-import { SchemaDirectiveVisitor, AuthenticationError } from 'apollo-server-express'
+import { SchemaDirectiveVisitor } from 'apollo-server-express'
 import { defaultFieldResolver } from 'graphql'
 import { ensureSignedOut } from '../auth'
 

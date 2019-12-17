@@ -7,43 +7,50 @@ import { attemptSignIn, signOut } from '../auth'
 
 export default {
   Query: {
-    me: (parent, arg, { req }, info) => {
+    me: (parent, args, { req }, info) => {
       // TODO projection
 
       return User.findById(req.session.userId)
     },
-    users: (parent, arg, { req }, info) => {
+    users: (parent, args, contex, info) => {
       // TODO projection, pagination
 
       return User.find()
     },
-    user: (parent, { id }, { req }, info) => {
+    user: async (parent, args, { req }, info) => {
       // TODO projection, sanitization
 
-      if (!mongoose.Types.ObjectId.isValid(id)) throw new UserInputError('Provided ID is not valid')
+      if (!mongoose.Types.ObjectId.isValid(args.id)) {
+        throw new UserInputError('Provided ID is not valid Object ID')
+      }
 
-      return User.findById(id)
+      return User.findById(args.id)
     }
   },
   Mutation: {
-    signUp: async (parent, arg, { req }, info) => {
-      await Joi.validate(arg, signUp, { abortEarly: false })
+    signUp: async (parent, args, { req }, info) => {
+      await Joi.validate(args, signUp, { abortEarly: false })
 
-      const user = await User.create(arg)
+      const user = await User.create(args)
 
       req.session.userId = user.id
 
       return user
     },
-    signIn: async (parent, arg, { req }, info) => {
-      await Joi.validate(arg, signIn, { abortEarly: false })
+    signIn: async (parent, args, { req }, info) => {
+      await Joi.validate(args, signIn, { abortEarly: false })
 
-      const user = await attemptSignIn(arg.email, arg.password)
+      const user = await attemptSignIn(args.email, args.password)
 
       req.session.userId = user.id
       
       return user
     },
-    signOut: async (parent, arg, { req, res }, info) => signOut(req, res)
+    signOut: async (parent, args, { req, res }, info) => signOut(req, res)
+  },
+  User: {
+    chats: async (user, args, contex, info) => {
+      return (await user.populate('chats').execPopulate()).chats
+    }
   }
 }
