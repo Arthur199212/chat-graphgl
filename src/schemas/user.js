@@ -1,4 +1,7 @@
 import Joi from 'joi'
+import objectId from 'joi-objectid'
+
+Joi.objectId = objectId(Joi)
 
 const email = Joi.string().email().required().label('Email')
 
@@ -26,4 +29,8 @@ export const signUp = Joi.object().keys({
 export const signIn = Joi.object().keys({
   email,
   password
+})
+
+export const validId = Joi.object().keys({
+  id: Joi.objectId(Joi).label('User ID')
 })

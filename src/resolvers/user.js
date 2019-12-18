@@ -1,7 +1,5 @@
-import mongoose from 'mongoose'
-import { UserInputError } from 'apollo-server-express'
 import Joi from 'joi'
-import { signUp, signIn } from '../schemas'
+import { signUp, signIn, validId } from '../schemas'
 import { User } from '../models'
 import { attemptSignIn, signOut } from '../auth'
 
@@ -20,9 +18,7 @@ export default {
     user: async (parent, args, { req }, info) => {
       // TODO projection, sanitization
 
-      if (!mongoose.Types.ObjectId.isValid(args.id)) {
-        throw new UserInputError('Provided ID is not valid Object ID')
-      }
+      await Joi.validate(args, validId, { abortEarly: false })
 
       return User.findById(args.id)
     }
