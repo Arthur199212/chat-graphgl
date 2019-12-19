@@ -1,0 +1,19 @@
+{
+  "name": "@chat-graphgl/web",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Arthur Rubchenko",
+  "homepage": "https://github.com/Arthur199212/chat-graphgl#readme",
+  "license": "ISC",
+  "main": "dist/main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arthur199212/chat-graphgl.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/Arthur199212/chat-graphgl/issues"
+  }
+}
