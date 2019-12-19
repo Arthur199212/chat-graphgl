@@ -1,6 +1,6 @@
 # Chat GraphQL
 
-### The App is under construction ...
+### :construction: The App is under construction ...
 
 ## Technologies
 
