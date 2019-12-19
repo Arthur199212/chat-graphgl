@@ -5,15 +5,44 @@
   "author": "Arthur Rubchenko",
   "homepage": "https://github.com/Arthur199212/chat-graphgl#readme",
   "license": "ISC",
-  "main": "dist/main.js",
+  "main": "dist-server/main.js",
+  "scripts": {
+    "dev": "webpack --mode development --watch --progress",
+    "prebuild": "rd /q /s dist",
+    "build": "webpack --mode production --progress",
+    "start": "cross-env NODE_ENV=production node dist-server/main"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Arthur199212/chat-graphgl.git"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
   "bugs": {
     "url": "https://github.com/Arthur199212/chat-graphgl/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "cross-env": "^6.0.3",
+    "http-proxy-middleware": "^0.20.0",
+    "nodemon-webpack-plugin": "^4.2.1",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link": "^1.2.13",
+    "apollo-link-error": "^1.1.12",
+    "apollo-link-http": "^1.5.16",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
+    "react": "^16.12.0",
+    "react-apollo-hooks": "^0.5.0",
+    "react-dom": "^16.12.0"
   }
 }
