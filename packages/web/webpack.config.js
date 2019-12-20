@@ -1,8 +1,11 @@
-const nodeExternals = require('webpack-node-externals')
-const NodemonPlugin = require('nodemon-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const shared = {
-  devtool: 'source-map',
+module.exports = {
+  entry: './src/client.js',
+  output: {
+    path: `${__dirname}/dist`,
+    filename: 'main.js'
+  },
   module: {
     rules: [
       {
@@ -13,22 +16,8 @@ const shared = {
         }
       }
     ]
-  }
-}
-
-module.exports = [
-  {
-    ...shared,
-    entry: './src/client.js'
   },
-  {
-    ...shared,
-    target: 'node',
-    entry: './src/server.js',
-    output: {
-      path: `${__dirname}/dist-server`
-    },
-    externals: [nodeExternals()],
-    plugins: [new NodemonPlugin()]
-  }
-]
+  plugins: [new HtmlWebpackPlugin({
+    template: 'src/index.html'
+  })]
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { hydrate } from 'react-dom'
-import { App } from './components'
+import { render } from 'react-dom'
+import App from './components/App'
 
-hydrate(<App />, document.getElementById('app'))
+render(<App />, document.getElementById('app'))

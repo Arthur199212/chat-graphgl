@@ -1,7 +1,4 @@
-import React from 'react'
 import express from 'express'
-import { renderToString } from 'react-dom/server'
-import { App } from './components'
 
 const {
   HTTP_PORT = 4000,
@@ -31,8 +28,6 @@ const IN_DEV = NODE_ENV === 'development'
     }
 
     app.get('/', (req, res) => {
-      const html = renderToString(<App />)
-
       res.send(`
         <!DOCTYPE html>
         <html lang="en">
@@ -42,10 +37,7 @@ const IN_DEV = NODE_ENV === 'development'
           <title>Chat</title>
         </head>
         <body>
-          <div id="app">${html}</div>
-          <script>
-            window.__APOLLO_URL__ = '${API_URI}'
-          </script>
+          <div id="app"></div>
           <script defer src="/main.js"></script>
         </body>
         </html>
