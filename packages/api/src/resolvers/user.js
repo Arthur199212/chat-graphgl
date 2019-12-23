@@ -39,8 +39,16 @@ export default {
     signOut: async (parent, args, { req, res }, info) => signOut(req, res)
   },
   User: {
-    chats: async (user, args, contex, info) => {
-      return (await user.populate('chats', fields(info)).execPopulate()).chats
+    chats: async (user, args, { req }, info) => {
+      return (await user.populate({
+        path: 'chats',
+        match: {
+          users: {
+            $in: req.session.userId
+          }
+        },
+        select: fields(info)
+      }).execPopulate()).chats
     }
   }
 }

@@ -15,7 +15,7 @@ import {
   HTTP_PORT
 } from './config'
 
-(async () => {
+;(async () => {
   try {
     await mongoose.connect(DB_URI, DB_OPTIONS)
 
