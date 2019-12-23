@@ -1,6 +1,7 @@
 import { UserInputError } from 'apollo-server-express'
 import { startChat } from '../validators'
 import { User, Chat, Message } from '../models'
+import { fields } from '../utils'
 
 export default {
   Mutation : {
@@ -31,15 +32,15 @@ export default {
   },
   Chat: {
     messages: (chat, args, context, info) => {
-      // TODO pagination, projection
+      // TODO pagination
 
-      return Message.find({ chat: chat.id })
+      return Message.find({ chat: chat.id }, fields(info)).exec()
     },
     users: async (chat, args, context, info) => {
-      return (await chat.populate('users').execPopulate()).users
+      return (await chat.populate('users', fields(info)).execPopulate()).users
     },
     lastMessage: async (chat, args, context, info) => {
-      return (await chat.populate('lastMessage').execPopulate()).lastMessage
+      return (await chat.populate('lastMessage', fields(info)).execPopulate()).lastMessage
     }
   }
 }

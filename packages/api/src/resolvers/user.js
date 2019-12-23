@@ -1,25 +1,20 @@
 import { signUp, signIn, validId } from '../validators'
 import { User } from '../models'
 import { attemptSignIn, signOut } from '../auth'
+import { fields } from '../utils'
 
 export default {
   Query: {
     me: (parent, args, { req }, info) => {
-      // TODO projection
-
-      return User.findById(req.session.userId)
+      return User.findById(req.session.userId, fields(info)).exec()
     },
     users: (parent, args, contex, info) => {
-      // TODO projection, pagination
-
-      return User.find().select('-__v')
+      return User.find({}, fields(info)).exec()
     },
     user: async (parent, args, { req }, info) => {
-      // TODO projection, sanitization
-
       await validId.validateAsync(args, { abortEarly: false })
 
-      return User.findById(args.id)
+      return User.findById(args.id, fields(info))
     }
   },
   Mutation: {
@@ -45,7 +40,7 @@ export default {
   },
   User: {
     chats: async (user, args, contex, info) => {
-      return (await user.populate('chats').execPopulate()).chats
+      return (await user.populate('chats', fields(info)).execPopulate()).chats
     }
   }
 }
