@@ -1,7 +1,7 @@
 import express from 'express'
 
 const {
-  HTTP_PORT = 4000,
+  HTTP_PORT = 3001,
   NODE_ENV = 'development',
   API_PORT = 3000,
   API_URI = '/graphql'

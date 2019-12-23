@@ -1,7 +1,17 @@
 import React from 'react'
 import gql from 'graphql-tag'
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom'
 import { ApolloProvider, useQuery } from 'react-apollo-hooks'
 import client from '../apollo'
+import CssBaseline from '@material-ui/core/CssBaseline'
+
+import AuthPage from './AuthPage'
+import Layer from './Layer'
 
 const GET_USERS = gql`
   {
@@ -30,7 +40,18 @@ const Users = props => {
 
 const App = props => (
   <ApolloProvider client={client}>
-    <Users />
+    <Router>
+      <Layer>
+        <Switch>
+          <Route exact path='/'>
+            <Users />
+          </Route>
+          <Route path='/auth'>
+            <AuthPage />
+          </Route>
+        </Switch>
+      </Layer>
+    </Router>
   </ApolloProvider>
 )
 
