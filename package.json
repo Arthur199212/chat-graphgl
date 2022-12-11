@@ -16,7 +16,7 @@
     "connect-redis": "^4.0.3",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.0",
     "graphql": "^14.5.8",
     "joi": "^14.3.1",
